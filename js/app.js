@@ -14,7 +14,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x * dt;
+    init = 101;
+    this.x = init * dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -22,19 +23,44 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-class player {
+class Player {
     
-    constructor (name) {
+    constructor (name,x,y) {
         this.name = name;
         this.image = 'images/char-boy.png';
+        this.y = y ;
+        this.x = x ;
     }
    render () {
     ctx.drawImage(Resources.get(this.image), this.x, this.y);
 }
+    
+    handleInput (keyvalue) {
+        
+        switch (keyvalue) {
+            case 'left' : 
+                this.x -= 101;
+                break;
+            case 'up' :
+                this.y -= 83;
+                break;
+            case 'right' :
+                this.x += 101;
+                break;
+            case 'down' : 
+                this.y += 83;
+                break;
+        }
+        
+    }
+    
     update() {
         
-        this.y = this.y * dt;
+        this.x = this.x;
+        this.y = this.y;
     }
+    
+    
 }
 
 // Now write your own player class
@@ -47,6 +73,7 @@ var Enemy1 = new Enemy();
 // Place the player object in a variable called player
 var allEnemies = [Enemy1];
 
+var player = new Player('player', 1, 2);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -57,6 +84,6 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
+    e.preventDefault();
     player.handleInput(allowedKeys[e.keyCode]);
 });
