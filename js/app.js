@@ -1,14 +1,14 @@
 // Enemies our player must avoid
-var Enemy = function(speed, y) {
+var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.y = y;
+    this.y = array[Math.floor(Math.random() * array.length)];
     this.x = 1;
     this.sprite = 'images/enemy-bug.png';
-    this.speed = speed;
+    this.speed = speed[Math.floor(Math.random() * speed.length)];
 };
 
 // Update the enemy's position, required method for game
@@ -19,8 +19,11 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.dt = dt;
     this.x += dt * this.speed;
-    if (this.x > 405) {
-        this.x = 405;
+    if (this.x > 506) {
+        this.x = -101;
+        this.y = array[Math.floor(Math.random() * array.length)];
+        this.speed = speed[Math.floor(Math.random() * speed.length)];
+        this.x += dt * this.speed;
     }
 
 };
@@ -96,9 +99,13 @@ class Gem {
         this.pic = pic;
     }
 }
-var Enemy1 = new Enemy(100, 1);
-var allEnemies = [Enemy1];
-var player = new Player(203, 1);
+ var speed = [200, 500];
+var array = [84, 167, 250];
+var Enemy1 = new Enemy(),
+    Enemy2 = new Enemy(),
+    Enemy3 = new Enemy();
+var allEnemies = [Enemy1, Enemy2, Enemy3];
+var player = new Player(203, 416);
 let score = 50;
 /*for (const vehicle of allEnemies){
     if (player.x === vehicle.x && player.y === vehicle.y) {
