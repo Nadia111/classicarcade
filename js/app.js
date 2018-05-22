@@ -17,8 +17,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-        this.dt = dt;
-        this.x += dt * this.speed;
+    this.dt = dt;
+    this.x += dt * this.speed;
     if (this.x > 405) {
         this.x = 405;
     }
@@ -33,9 +33,9 @@ Enemy.prototype.render = function() {
 class Player {
 
     constructor (x,y) {
-        
+
         this.image = 'images/char-boy.png';
-                this.x = x ;
+        this.x = x ;
         this.y = y ;
 
     }
@@ -77,24 +77,29 @@ class Player {
     update() {
 
 
-        this.x = this.x;
-        this.y = this.y;
-        
-        
-for (const vehicle of allEnemies){
-    if (this.x <= vehicle.x+(vehicle.dt*vehicle.speed) && this.x >= vehicle.x-(vehicle.dt*vehicle.speed) && this.y <= vehicle.y+(vehicle.dt*vehicle.speed) && this.y <= vehicle.y+(vehicle.dt*vehicle.speed)) {
-            this.y = 416;
+        for (const vehicle of allEnemies){
+            if (this.x < vehicle.x+45 && this.x > vehicle.x-45 && this.y == vehicle.y && this.y == vehicle.y) {
+                this.y = 416;
+                score -= 10;
+            }
         }
- }
 
     }
 
 
 }
-var Enemy1 = new Enemy(450, 1);
+
+class Gem {
+    
+    constructor (pic) {
+        
+        this.pic = pic;
+    }
+}
+var Enemy1 = new Enemy(100, 1);
 var allEnemies = [Enemy1];
 var player = new Player(203, 1);
-
+let score = 50;
 /*for (const vehicle of allEnemies){
     if (player.x === vehicle.x && player.y === vehicle.y) {
             player.y = 416;
