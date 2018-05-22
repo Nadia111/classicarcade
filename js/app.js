@@ -1,11 +1,14 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(speed, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+    this.y = y;
+    this.x = 1;
     this.sprite = 'images/enemy-bug.png';
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -14,8 +17,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    init = 101;
-    this.x = init * dt;
+        this.dt = dt;
+        this.x += dt * this.speed;
+    if (this.x > 405) {
+        this.x = 405;
+    }
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -24,56 +31,87 @@ Enemy.prototype.render = function() {
 };
 
 class Player {
-    
-    constructor (name,x,y) {
-        this.name = name;
-        this.image = 'images/char-boy.png';
-        this.y = y ;
-        this.x = x ;
-    }
-   render () {
-    ctx.drawImage(Resources.get(this.image), this.x, this.y);
-}
-    
-    handleInput (keyvalue) {
+
+    constructor (x,y) {
         
+        this.image = 'images/char-boy.png';
+                this.x = x ;
+        this.y = y ;
+
+    }
+    render () {
+        ctx.drawImage(Resources.get(this.image), this.x, this.y);
+    }
+
+    handleInput (keyvalue) {
+
         switch (keyvalue) {
             case 'left' : 
                 this.x -= 101;
+                if (this.x < 1) {
+                    this.x = 1;
+                }
                 break;
             case 'up' :
                 this.y -= 83;
+                if (this.y <= 1) {
+                    this.y = 1;
+                }
                 break;
             case 'right' :
                 this.x += 101;
+                if (this.x > 405) {
+                    this.x = 405;
+                }
                 break;
             case 'down' : 
                 this.y += 83;
+                if (this.y >= 416) {
+                    this.y = 416;
+                }
                 break;
         }
-        
+
     }
-    
+
     update() {
-        
+
+
         this.x = this.x;
         this.y = this.y;
+        
+        
+for (const vehicle of allEnemies){
+    if (this.x <= vehicle.x+(vehicle.dt*vehicle.speed) && this.x >= vehicle.x-(vehicle.dt*vehicle.speed) && this.y <= vehicle.y+(vehicle.dt*vehicle.speed) && this.y <= vehicle.y+(vehicle.dt*vehicle.speed)) {
+            this.y = 416;
+        }
+ }
+
     }
-    
-    
+
+
 }
+var Enemy1 = new Enemy(450, 1);
+var allEnemies = [Enemy1];
+var player = new Player(203, 1);
+
+/*for (const vehicle of allEnemies){
+    if (player.x === vehicle.x && player.y === vehicle.y) {
+            player.y = 416;
+        }
+ }*/
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
-var Enemy1 = new Enemy();
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [Enemy1];
 
-var player = new Player('player', 1, 2);
+
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
