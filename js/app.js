@@ -135,17 +135,37 @@ document.getElementById('points').textContent = "Your score is: "+score+" points
 document.getElementById('water').textContent = "You touched the water: "+water+" times";
 }
 
-display();
+
+
+if (score >= 50 && water > 0) {
+    display();
+    modal_win();
+    document.getElementsByClassName('modal').addClass('show');
+    document.getElementsByClassName('modal').removeClass('hide');
+    document.getElementsByClassName('container').addClass('transparent');
+    document.getElementsByTagName('button').addEventListener("click", reset);
+}
+
+else {
+    reset();
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
+function reset () {
+    document.getElementsByClassName('modal').removeClass('show');
+    document.getElementsByClassName('modal').addClass('hide');
+    document.getElementsByClassName('container').removeClass('transparent');
 var Enemy1 = new Enemy(),
     Enemy2 = new Enemy(),
     Enemy3 = new Enemy();
 var allEnemies = [Enemy1, Enemy2, Enemy3];
 var player = new Player();
 var gem = new Gem();
+    
+}
 function gem_update () {
     gem.x =xarray[Math.floor(Math.random() * xarray.length)] ;
     gem.y = array[Math.floor(Math.random() * array.length)];
@@ -157,7 +177,7 @@ function modal_win() {
     document.getElementById('score').textContent = score;
 }
 
-modal_win();
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
