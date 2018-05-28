@@ -27,14 +27,17 @@ body {
 
 #wrapper {
     display: flex;
-    flex-wrap: wrap;
-    width: 2030px;
+    min-width: 100%;
     margin-top: -606px;
 }
 
+#div1, #div2 {
+    width: 30%;
+}
 
 #modal {
-    width: 505px;
+    width: 40%;
+    min-width: 505px;
     height: 606px;
     background-color: #fff;
     border-radius: 5px;
@@ -44,15 +47,6 @@ body {
     align-self: center;
 
 }
-/*
-#canvas,
-#modal {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-*/
 
 #congrats {
     font-family: 'Dancing Script', cursive;
