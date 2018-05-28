@@ -96,6 +96,7 @@ var Engine = (function(global) {
         });
         player.update();
         gem.update(dt);
+        winner.popup();
     }
 
     /* This function initially draws the "game level", it will then call

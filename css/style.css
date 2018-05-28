@@ -1,7 +1,8 @@
 body {
     text-align: center;
     background:  radial-gradient(ellipse at top, #6f83db , transparent),
-            radial-gradient(ellipse at bottom, #66c44e, transparent);
+        radial-gradient(ellipse at bottom, #66c44e, transparent);
+    position: relative;
 }
 
 #board {
@@ -24,20 +25,34 @@ body {
     z-index: -1;
 }
 
-.modal {
+#wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 2030px;
+    margin-top: -606px;
+}
+
+
+#modal {
     width: 505px;
     height: 606px;
     background-color: #fff;
     border-radius: 5px;
-    margin: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 1.3em;
     z-index: 1;
-    position: absolute;
-    top: 100px;
-    margin-left: auto;
-    margin-right: auto;
+    align-self: center;
+
 }
+/*
+#canvas,
+#modal {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+*/
 
 #congrats {
     font-family: 'Dancing Script', cursive;
@@ -58,13 +73,13 @@ button {
 
 .hide {
     display: none;
-    
+
 }
 
 .show {
     visibility: visible;
-    
-    
+
+
 }
 
 #canvas {

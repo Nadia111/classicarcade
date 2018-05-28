@@ -78,7 +78,7 @@ class Player {
     }
 
     update() {
-        // update when a collision happens:
+        // TODO: update when a collision happens:
         for (const vehicle of allEnemies){
             if (this.x < vehicle.x+45 && this.x > vehicle.x-45 && this.y == vehicle.y+20 && this.y == vehicle.y+20) {
                 this.y = 416;
@@ -88,7 +88,7 @@ class Player {
                 display();
             }
         }
-        // update when the player reaches the water:
+        // TODO: update when the player reaches the water:
         if (this.y == 1) {
             this.y = 416;
             this.x = 203;
@@ -123,6 +123,34 @@ class Gem {
         ctx.drawImage(Resources.get(this.image), this.x, this.y);
     }
 }
+
+class Winner {
+    constructor () {
+        this.modal = document.getElementById('modal');
+        this.page = document.getElementById('container');
+
+    }
+    popup () {
+
+        if (score >= 50 && water > 0) {
+            display();
+            modal_win();
+            this.modal.classList.replace("hide", "show");
+            this.page.classList.add('transparent');
+            // TODO: new game
+            document.getElementById('button').addEventListener("click", function() {
+                document.getElementById('modal').classList.replace('show', 'hide');
+                document.getElementById('container').classList.remove('transparent');
+                score = 50;
+                water = 0;
+                display();
+
+            });
+        }
+    }
+
+}
+
 var speed = [200, 500];
 var array = [64, 147, 230];
 var xarray = [1, 102, 203, 304, 405];
@@ -131,41 +159,29 @@ let water = 0;
 var gem_img = ['images/Gem Blue.png', 'images/Gem Green.png', 'images/Gem Orange.png'];
 
 function display() {
-document.getElementById('points').textContent = "Your score is: "+score+" points";
-document.getElementById('water').textContent = "You touched the water: "+water+" times";
+    document.getElementById('points').textContent = "Your score is: "+score+" points";
+    document.getElementById('water').textContent = "You touched the water: "+water+" times";
 }
 
+display();
 
 
-if (score >= 50 && water > 0) {
-    display();
-    modal_win();
-    document.getElementsByClassName('modal').addClass('show');
-    document.getElementsByClassName('modal').removeClass('hide');
-    document.getElementsByClassName('container').addClass('transparent');
-    document.getElementsByTagName('button').addEventListener("click", reset);
-}
-
-else {
-    reset();
-}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-function reset () {
-    document.getElementsByClassName('modal').removeClass('show');
-    document.getElementsByClassName('modal').addClass('hide');
-    document.getElementsByClassName('container').removeClass('transparent');
+document.getElementById('modal').classList.replace('show', 'hide');
+document.getElementById('container').classList.remove('transparent');
 var Enemy1 = new Enemy(),
     Enemy2 = new Enemy(),
     Enemy3 = new Enemy();
 var allEnemies = [Enemy1, Enemy2, Enemy3];
 var player = new Player();
 var gem = new Gem();
-    
-}
+var winner = new Winner();
+
+
 function gem_update () {
     gem.x =xarray[Math.floor(Math.random() * xarray.length)] ;
     gem.y = array[Math.floor(Math.random() * array.length)];
